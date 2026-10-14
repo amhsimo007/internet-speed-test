@@ -1,0 +1,867 @@
+:root {
+    font-family: Inter, Arial, sans-serif;
+    color: #f1f5f9;
+    background: #07111f;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+}
+
+button {
+    font: inherit;
+}
+
+.app {
+    width: min(900px, 92%);
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.app-header h1 {
+    color: #60a5fa;
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+.app-header p,
+.status {
+    color: #94a3b8;
+}
+
+.test-panel {
+    background: #111e30;
+    border: 1px solid #253750;
+    border-radius: 24px;
+    padding: 28px;
+    text-align: center;
+}
+
+.gauge {
+    width: 350px;
+    height: 350px;
+    border: 10px solid #263d59;
+    border-top-color: #38bdf8;
+    border-bottom-color: #38bdf8;
+    border-radius: 50%;
+    margin: 28px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #100137;
+}
+
+.gauge span {
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+.gauge small {
+    color: #94a3b8;
+    margin-top: 8px;
+}
+
+.start-button {
+    background: #2563eb;
+    color: white;
+    border: 0;
+    border-radius: 12px;
+    padding: 15px 32px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.start-button:hover:not(:disabled) {
+    background: #3b82f6;
+}
+
+.start-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.progress-track {
+    height: 8px;
+    background: #263d59;
+    border-radius: 99px;
+    overflow: hidden;
+    margin: 28px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #38bdf8;
+    transition: width 0.3s ease;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.result-card {
+    background: #18283e;
+    padding: 20px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.result-card span {
+    color: #94a3b8;
+}
+
+.result-card strong {
+    font-size: 1.25rem;
+}
+
+.notice {
+    margin-top: 24px;
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+    .app {
+        padding: 24px 0;
+    }
+
+    .test-panel {
+        padding: 18px;
+    }
+
+    .gauge {
+        width: 180px;
+        height: 180px;
+    }
+
+    .gauge span {
+        font-size: 2.8rem;
+    }
+
+    .result-card {
+        padding: 14px;
+    }
+}
+
+.test-hint {
+    color: #7dd3fc;
+    font-size: 0.9rem;
+    margin-top: 16px;
+}
+
+.error-message {
+    padding: 16px;
+    margin: 20px 0;
+    text-align: left;
+    border: 1px solid #ef4444;
+    border-radius: 12px;
+    background: #451a1a;
+    color: #fecaca;
+    overflow-wrap: anywhere;
+}
+
+.error-message p {
+    font-weight: 700;
+    margin-top: 0;
+}
+
+.advanced-results {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 14px;
+    background: #18283e;
+    text-align: left;
+}
+
+.advanced-results h2 {
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+.advanced-results p {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.secondary-button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: 1px solid #38bdf8;
+    border-radius: 10px;
+    color: #7dd3fc;
+    background: transparent;
+    cursor: pointer;
+}
+
+.secondary-button:hover {
+    background: #1e3a5f;
+}
+
+/* Speed history chart */
+
+.history-panel,
+.chart-panel {
+    margin-top: 24px;
+    padding: 24px;
+    background: #111e30;
+    border: 1px solid #253750;
+    border-radius: 24px;
+}
+
+.history-header,
+.chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.history-header h2,
+.chart-header h2 {
+    font-size: 1.25rem;
+    color: #f1f5f9;
+}
+
+.history-header .secondary-button {
+    margin-top: 0;
+}
+
+.history-empty,
+.chart-empty {
+    margin-top: 20px;
+    color: #94a3b8;
+    line-height: 1.6;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.history-item {
+    padding: 16px;
+    border: 1px solid #253750;
+    border-radius: 14px;
+    background: #18283e;
+}
+
+.history-item time {
+    display: block;
+    margin-bottom: 12px;
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.history-results {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+}
+
+.chart-panel {
+    text-align: left;
+}
+
+.chart-header p {
+    margin-top: 8px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 24px 0 12px;
+    color: #cbd5e1;
+    font-size: 0.85rem;
+}
+
+.chart-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.download-dot {
+    background: #38bdf8;
+}
+
+.upload-dot {
+    background: #a78bfa;
+}
+
+.chart-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.speed-chart {
+    display: block;
+    width: 100%;
+    min-width: 320px;
+    height: auto;
+    overflow: visible;
+}
+
+.chart-grid-line {
+    stroke: #253750;
+    stroke-width: 1;
+}
+
+.chart-axis-label {
+    fill: #94a3b8;
+    font-size: 12px;
+}
+
+.chart-line {
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.download-line {
+    stroke: #38bdf8;
+}
+
+.upload-line {
+    stroke: #a78bfa;
+}
+
+.chart-point {
+    stroke: #111e30;
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+.download-point {
+    fill: #38bdf8;
+}
+
+.upload-point {
+    fill: #a78bfa;
+}
+
+.chart-note {
+    margin-top: 16px;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+    .history-panel,
+    .chart-panel {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .history-header {
+        align-items: flex-start;
+    }
+
+    .history-results {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-legend {
+        gap: 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Interactive speed-chart tooltip */
+
+.chart-container {
+    position: relative;
+}
+
+.chart-point {
+    cursor: pointer;
+    transition:
+        r 0.15s ease,
+        opacity 0.15s ease;
+    outline: none;
+}
+
+.chart-point:focus-visible {
+    stroke: currentColor;
+    stroke-width: 3px;
+}
+
+.chart-tooltip {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+
+    width: min(230px, calc(100% - 24px));
+    padding: 14px;
+
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 12px;
+
+    background: rgba(15, 23, 42, 0.96);
+    color: #f8fafc;
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+    pointer-events: none;
+}
+
+.chart-tooltip strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.chart-tooltip p {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin: 7px 0;
+    font-size: 12px;
+}
+
+.chart-tooltip p span {
+    color: #cbd5e1;
+}
+
+.chart-tooltip small {
+    display: block;
+    margin-top: 10px;
+
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+@media (max-width: 480px) {
+    .chart-tooltip {
+        top: 8px;
+        right: 8px;
+
+        width: min(200px, calc(100% - 16px));
+        padding: 10px;
+    }
+}
+
+/* Connection Quality */
+
+.quality-panel {
+    margin-top: 24px;
+    padding: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.quality-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.quality-header h2 {
+    margin: 0 0 8px;
+}
+
+.quality-header p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.quality-badge {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.quality-badge-excellent,
+.quality-status-excellent {
+    color: #16a34a;
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.quality-badge-good,
+.quality-status-good {
+    color: #2563eb;
+    background: rgba(59, 130, 246, 0.12);
+}
+
+.quality-badge-fair,
+.quality-status-fair {
+    color: #d97706;
+    background: rgba(245, 158, 11, 0.12);
+}
+
+.quality-badge-poor,
+.quality-status-poor {
+    color: #dc2626;
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.quality-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.quality-metric {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+}
+
+.quality-metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-size: 13px;
+}
+
+.quality-status {
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.quality-metric strong {
+    font-size: 22px;
+}
+
+.quality-note {
+    margin: 20px 0 0;
+    font-size: 12px;
+    line-height: 1.7;
+    opacity: 0.75;
+}
+
+.quality-empty {
+    line-height: 1.7;
+}
+
+@media (max-width: 480px) {
+    .quality-panel {
+        padding: 16px;
+    }
+
+    .quality-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .quality-metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   Gaming Quality
+======================================== */
+
+.gaming-panel {
+    margin-top: 24px;
+    padding: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.gaming-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.gaming-header h2 {
+    margin: 0 0 8px;
+}
+
+.gaming-header p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.gaming-badge {
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.gaming-badge-excellent,
+.gaming-status-excellent {
+    color: #16a34a;
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.gaming-badge-good,
+.gaming-status-good {
+    color: #2563eb;
+    background: rgba(59, 130, 246, 0.12);
+}
+
+.gaming-badge-fair,
+.gaming-status-fair {
+    color: #d97706;
+    background: rgba(245, 158, 11, 0.12);
+}
+
+.gaming-badge-poor,
+.gaming-status-poor {
+    color: #dc2626;
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.gaming-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.gaming-metric {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+}
+
+.gaming-metric-label {
+    font-size: 14px;
+}
+
+.gaming-metric strong {
+    font-size: 26px;
+}
+
+.gaming-status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.gaming-tips {
+    margin-top: 24px;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(148, 163, 184, 0.06);
+}
+
+.gaming-tips h3 {
+    margin-top: 0;
+    font-size: 16px;
+}
+
+.gaming-tips ul {
+    margin-bottom: 0;
+    padding-left: 22px;
+    line-height: 1.9;
+}
+
+.gaming-note {
+    margin: 20px 0 0;
+    font-size: 12px;
+    line-height: 1.8;
+    opacity: 0.75;
+}
+
+.gaming-empty {
+    line-height: 1.7;
+}
+
+@media (max-width: 480px) {
+    .gaming-panel {
+        padding: 16px;
+    }
+
+    .gaming-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .gaming-metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   Video Call Quality
+======================================== */
+
+.video-quality-panel {
+    margin-top: 24px;
+    padding: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.video-quality-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.video-quality-header h2 {
+    margin: 0 0 8px;
+}
+
+.video-quality-header p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.video-quality-badge {
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.video-quality-badge-excellent,
+.video-quality-status-excellent {
+    color: #16a34a;
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.video-quality-badge-good,
+.video-quality-status-good {
+    color: #2563eb;
+    background: rgba(59, 130, 246, 0.12);
+}
+
+.video-quality-badge-fair,
+.video-quality-status-fair {
+    color: #d97706;
+    background: rgba(245, 158, 11, 0.12);
+}
+
+.video-quality-badge-poor,
+.video-quality-status-poor {
+    color: #dc2626;
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.video-quality-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.video-quality-metric {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+}
+
+.video-quality-metric strong {
+    font-size: 24px;
+}
+
+.video-quality-status {
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.video-quality-tips {
+    margin-top: 24px;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(148, 163, 184, 0.06);
+}
+
+.video-quality-tips h3 {
+    margin-top: 0;
+    font-size: 16px;
+}
+
+.video-quality-tips ul {
+    margin-bottom: 0;
+    padding-left: 22px;
+    line-height: 1.9;
+}
+
+.video-quality-note {
+    margin: 20px 0 0;
+    font-size: 12px;
+    line-height: 1.8;
+    opacity: 0.75;
+}
+
+@media (max-width: 480px) {
+    .video-quality-panel {
+        padding: 16px;
+    }
+
+    .video-quality-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .video-quality-grid {
+        grid-template-columns: 1fr;
+    }
+}
