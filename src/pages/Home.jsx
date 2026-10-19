@@ -6,6 +6,7 @@ import { createSpeedTest } from "../services/speedTest";
 import GamingQuality from "../components/GamingQuality.jsx";
 import VideoCallQuality from "../components/VideoCallQuality.jsx";
 import ConnectionQuality from "../components/ConnectionQuality.jsx";
+
 import {
     getTestHistory,
     saveTestToHistory,
